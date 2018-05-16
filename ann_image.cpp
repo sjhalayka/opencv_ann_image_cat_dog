@@ -175,8 +175,8 @@ int main(void)
 	TermCriteria termCrit = TermCriteria(TermCriteria::Type::COUNT + TermCriteria::Type::EPS, 1, 0.000001);
 	mlp->setTermCriteria(termCrit);
 	mlp->setTrainMethod(ANN_MLP::TrainingMethods::BACKPROP);
-	mlp->setBackpropMomentumScale(0.00001);
-	mlp->setBackpropWeightScale(0.1);
+	mlp->setBackpropMomentumScale(1.0);
+	mlp->setBackpropWeightScale(0.00001);
 
 	Mat output_data;
 	get_bits_for_int(num_output_neurons, training_classifications[0], output_data);
@@ -188,7 +188,7 @@ int main(void)
 	Ptr<TrainData> trainingData = TrainData::create(flt_sample_img, SampleTypes::ROW_SAMPLE, output_data);
 	mlp->train(trainingData, ANN_MLP::TrainFlags::NO_INPUT_SCALE | ANN_MLP::TrainFlags::NO_OUTPUT_SCALE);
 
-	for (size_t iters = 0; iters < 1; iters++)
+	for (size_t iters = 0; iters < 100; iters++)
 	{
 		cout << iters << endl;
 
